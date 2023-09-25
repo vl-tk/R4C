@@ -3,4 +3,4 @@
 ```poetry install```
 
 # Проверка, что работают тесты
-```pytest```
+```python manage.py test```
