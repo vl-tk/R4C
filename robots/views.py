@@ -1,8 +1,11 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from robots.models import Robot
 from robots.forms import RobotForm
+from robots.services import create_report, delete_report
 import http
+import mimetypes
+from pathlib import Path
 
 
 @csrf_exempt
@@ -29,3 +32,20 @@ def create_robot(request):
         {"message": "Use POST request to create a robot"},
         status=http.HTTPStatus.BAD_REQUEST,
     )
+
+
+def download_report_file(request):
+    try:
+        delete_report()
+        create_report()
+    except Exception as e:
+        return JsonResponse(
+            {"message": "Error creating report"},
+            status=http.HTTPStatus.INTERNAL_SERVER_ERROR,
+        )
+    full_path = Path("excel_reports/summary_for_week.xlsx")
+    with open(full_path, "rb") as f:
+        mime_type, _ = mimetypes.guess_type(full_path)
+        response = HttpResponse(f, content_type=mime_type)
+        response["Content-Disposition"] = "attachment; filename=%s" % full_path.name
+    return response
