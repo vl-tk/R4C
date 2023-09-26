@@ -24,7 +24,7 @@ def create_order(request):
 
         return JsonResponse(
             {"message": "We've added you to the waiting list for this robot"},
-            status=http.HTTPStatus.CREATED,
+            status=http.HTTPStatus.OK,
         )
     else:
         order = Order.objects.create(robot_serial=robot.serial, customer=customer)

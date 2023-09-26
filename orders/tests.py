@@ -31,7 +31,7 @@ class RobotOrderTestCase(TestCase):
             data={"email": "test@example.com", "robot_serial": "R2 D2"},
         )
 
-        self.assertEqual(response.status_code, http.HTTPStatus.CREATED)
+        self.assertEqual(response.status_code, http.HTTPStatus.OK)
         self.assertEqual(Order.objects.count(), 0)
         self.assertEqual(WaitingListItem.objects.count(), 1)
 
@@ -44,7 +44,7 @@ class RobotOrderTestCase(TestCase):
             data={"email": "test@example.com", "robot_serial": "R2 D2"},
         )
 
-        self.assertEqual(response.status_code, http.HTTPStatus.CREATED)
+        self.assertEqual(response.status_code, http.HTTPStatus.OK)
         self.assertEqual(Order.objects.count(), 0)
         self.assertEqual(WaitingListItem.objects.count(), 1)
 
