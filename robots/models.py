@@ -6,3 +6,10 @@ class Robot(models.Model):
     model = models.CharField(max_length=2, blank=False, null=False)
     version = models.CharField(max_length=2, blank=False, null=False)
     created = models.DateTimeField(blank=False, null=False)
+
+    def __str__(self):
+        return f"Robot #{self.pk} {self.serial}"
+
+    def save(self, *args, **kwargs):
+        self.serial = self.model + " " + self.version
+        super().save(*args, **kwargs)
