@@ -16,7 +16,7 @@ def robot_created(sender, instance, created, **kwargs):
         for item in items:
             try:
                 send_waiting_list_email(
-                    [item.customer.email], instance.model, instance.serial
+                    [item.customer.email], instance.model, instance.version
                 )
             except Exception:
                 pass
