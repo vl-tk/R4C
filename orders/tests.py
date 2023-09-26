@@ -18,7 +18,7 @@ class RobotOrderTestCase(TestCase):
 
         response = self.client.post(
             reverse("create_order"),
-            data={"email": "test@example.com", "robot_serial": "R2 D2"},
+            data={"customer": "test@example.com", "robot_serial": "R2 D2"},
         )
 
         self.assertEqual(response.status_code, http.HTTPStatus.CREATED)
@@ -28,7 +28,7 @@ class RobotOrderTestCase(TestCase):
     def test_create_waiting_list_item(self):
         response = self.client.post(
             reverse("create_order"),
-            data={"email": "test@example.com", "robot_serial": "R2 D2"},
+            data={"customer": "test@example.com", "robot_serial": "R2 D2"},
         )
 
         self.assertEqual(response.status_code, http.HTTPStatus.OK)
@@ -41,7 +41,7 @@ class RobotOrderTestCase(TestCase):
 
         response = self.client.post(
             reverse("create_order"),
-            data={"email": "test@example.com", "robot_serial": "R2 D2"},
+            data={"customer": "test@example.com", "robot_serial": "R2 D2"},
         )
 
         self.assertEqual(response.status_code, http.HTTPStatus.OK)

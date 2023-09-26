@@ -1,9 +1,10 @@
-from django.test import TestCase
-from pathlib import Path
-import http
 import datetime
-from robots.models import Robot
+import http
+from pathlib import Path
+
+from django.test import TestCase
 from django.urls import reverse
+from robots.models import Robot
 from robots.services import create_report, delete_report
 
 
@@ -55,3 +56,5 @@ class RobotReportTestCase(TestCase):
         self.assertTrue(Path("excel_reports/test_summary_for_week.xlsx").exists())
 
         delete_report("excel_reports/test_summary_for_week.xlsx")
+
+        self.assertFalse(Path("excel_reports/test_summary_for_week.xlsx").exists())

@@ -13,11 +13,10 @@ def _create_customer(email):
 
 @csrf_exempt
 def create_order(request):
-    customer = _create_customer(request.POST["email"])
+    customer = _create_customer(request.POST["customer"])
 
-    try:
-        robot = Robot.objects.get(serial=request.POST["robot_serial"])
-    except Robot.DoesNotExist:
+    robots = Robot.objects.filter(serial=request.POST["robot_serial"])
+    if not robots:
         WaitingListItem.objects.create(
             customer=customer, robot_serial=request.POST["robot_serial"]
         )
@@ -27,7 +26,7 @@ def create_order(request):
             status=http.HTTPStatus.OK,
         )
     else:
-        order = Order.objects.create(robot_serial=robot.serial, customer=customer)
+        order = Order.objects.create(robot_serial=robots[0].serial, customer=customer)
 
     return JsonResponse(
         {"message": f"Order {order.pk} for {order.robot_serial} created succesfully"},

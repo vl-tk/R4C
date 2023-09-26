@@ -1,10 +1,9 @@
 import logging
-import openpyxl
 from pathlib import Path
 
+import openpyxl
 from django.conf import settings
 from django.db.models import Count
-
 from robots.models import Robot
 from utils.date import get_last_monday
 
@@ -23,7 +22,7 @@ def create_report(report_filepath="excel_reports/summary_for_week.xlsx"):
 
 
 class WeekReport:
-    def __init__(self, report_filepath=None):
+    def __init__(self, report_filepath):
         self.report_filepath = Path(settings.BASE_DIR) / report_filepath
         self.wb = openpyxl.Workbook()
 
@@ -52,7 +51,6 @@ class WeekReport:
                 .annotate(total=Count("version"))
                 .order_by("total")
             )
-            logger.info(versions_count)
             for n, version_data in enumerate(versions_count, start=1):
                 ws[f"A{n + 1}"] = model_data["model"]
                 ws[f"B{n + 1}"] = version_data["version"]
