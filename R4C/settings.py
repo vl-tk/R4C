@@ -57,7 +57,7 @@ ROOT_URLCONF = "R4C.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": ["templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -161,3 +161,5 @@ LOGGING = {
         },
     },
 }
+
+EMAIL_FROM = "test@example.com"
