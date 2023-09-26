@@ -29,17 +29,25 @@ class RobotReportTestCase(TestCase):
         self.assertFalse(Path("excel_reports/test_summary_for_week.xlsx").exists())
 
     def test_create_report(self):
-        r = Robot.objects.create(
-            model="R2", version="D2", created=str(datetime.datetime.now())
+        Robot.objects.create(
+            model="R2",
+            version="D2",
+            created=str(datetime.datetime.now(datetime.timezone.utc)),
         )
-        r = Robot.objects.create(
-            model="R2", version="D2", created=str(datetime.datetime.now())
+        Robot.objects.create(
+            model="R2",
+            version="D2",
+            created=str(datetime.datetime.now(datetime.timezone.utc)),
         )
-        r = Robot.objects.create(
-            model="R2", version="D3", created=str(datetime.datetime.now())
+        Robot.objects.create(
+            model="R2",
+            version="D3",
+            created=str(datetime.datetime.now(datetime.timezone.utc)),
         )
-        r = Robot.objects.create(
-            model="R2", version="D4", created=str(datetime.datetime.now())
+        Robot.objects.create(
+            model="R2",
+            version="D4",
+            created=str(datetime.datetime.now(datetime.timezone.utc)),
         )
 
         create_report("excel_reports/test_summary_for_week.xlsx")
