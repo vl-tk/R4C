@@ -1,11 +1,12 @@
-from django.http import JsonResponse, HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from robots.models import Robot
-from robots.forms import RobotForm
-from robots.services import create_report, delete_report
 import http
 import mimetypes
 from pathlib import Path
+
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from robots.forms import RobotForm
+from robots.models import Robot
+from robots.services import create_report, delete_report
 
 
 @csrf_exempt
@@ -37,7 +38,7 @@ def create_robot(request):
 def download_report_file(request):
     try:
         delete_report()
-        create_report()
+        create_report()  # for simple reports only
     except Exception as e:
         return JsonResponse(
             {"message": "Error creating report"},
